@@ -104,7 +104,7 @@ document.getElementById("throttleSlide").value = 1500;
 		if(throttleValue<1000){
 			throttleValue = 1000;
 		}
-		//document.getElementById("myRange").value = turnRange;
+		document.getElementById("throttleSlide").value = throttleValue;
 		throttleFunc();
 	}
 </script>
@@ -144,11 +144,11 @@ document.getElementById("throttleSlide").value = 1500;
 <button id="leftTurn" style="width:50px; height:50px" onclick="changeTurn(-100)"><--</button>
 <button id="rightTurn" style="width:50px; height:50px" onclick="changeTurn(100)">--></button>
 
-<button id="throttleUp" style="width:50px; height:50px" onclick="changeThrottle(-100)"><--</button>
-<button id="throttleDown" style="width:50px; height:50px" onclick="changeThrottle(100)">--></button>
+<button id="throttleUp" style="width:50px; height:50px" onclick="changeThrottle(-100)">Up</button>
+<button id="throttleDown" style="width:50px; height:50px" onclick="changeThrottle(100)">Down</button>
 
 
-<input style="width:300px; margin-top:100px; margin-left:100px;" type="range" id="myRange" min="800" max="2200">
+<input style="width:300px; margin-top:100px; margin-left:100px;" type="range" id="myRange" min="1000" max="2000">
 
 <input style="width:300px; margin-top:100px; margin-left:100px;  -webkit-appearance: slider-vertical;" type="range" id="throttleSlide" min="1000" max="2000">
 
