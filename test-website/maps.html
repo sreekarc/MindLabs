@@ -15,28 +15,98 @@
         <div class="right menu">
             <a class="item" onclick="window.location.href='index.html'">Home</a>
             <a class="item">What We've Made</a>
-            <a class="active item">Where Are We?</a>
+            <a class="active item">Farm Bot</a>
             <a class="item">About Us</a>
         </div>
     </div>
 </div>
 
-<h1>Hollis, NH</h1>
-
-<div id="map" style="width:800px;height:800px;background:limegreen"></div>
+<h1>Where is the Farm Bot Right Now?</h1>
 
 <script>
-function myMap() {
-var mapOptions = {
-    center: new google.maps.LatLng(42.742, -71.592),
-    zoom: 15,
-    mapTypeId: google.maps.MapTypeId.HYBRID
-}
-var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-}
+    var latlong;
+    var mapOptions;
+    var map;
+    var marker;
+    var markers = [];
+    var pwmnum;
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdfpe-vcnneOY7ZhzPrgBHFOaLClgx66M&callback=myMap"></script>
+<div id="map" style="width:700px;height:700px;float:left;"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> 
+
+<script>
+    function myFunc() {
+        var x = document.getElementById("myRange").value;
+        pwmnum = x;
+        var msg = JSON.stringify({"pwm":pwmnum})
+        console.log(msg)
+        var socket = io();
+        socket.emit('servo steering', msg);
+        return;
+    }
+    function myMap() {
+        mapOptions = {
+            center: latlong,
+            zoom: 20,
+            mapTypeId: google.maps.MapTypeId.HYBRID
+        }
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        myMarker();
+    }
+    function myMarker(){
+        reloadXMLDoc();
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+        markers = [];
+        marker = new google.maps.Marker({
+            position: latlong,
+            map: map,
+            title: 'Farm Bot'
+        });
+        markers.push(marker);
+        console.log(latlong);
+    }
+</script>
+
+<script>
+    function loadXMLDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                latlong = JSON.parse(this.responseText);
+                myMap();
+            }
+        };
+        xhttp.open("GET", "xmlinfo.txt", true);
+        xhttp.send();
+    }
+    function reloadXMLDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                latlong = JSON.parse(this.responseText);
+            }
+        };
+        xhttp.open("GET", "xmlinfo.txt", true);
+        xhttp.send();
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdfpe-vcnneOY7ZhzPrgBHFOaLClgx66M"></script>
+
+<script>
+    loadXMLDoc();
+    var myVar = setInterval(myMarker, 600);
+</script>
+
+<input style="width:300px; margin-top:100px; margin-left:100px;" type="range" id="myRange" min="800" max="2200">
+
+<script>
+    var steerServo = setInterval(myFunc, 200);
+</script>
 
 </body>
 </html>

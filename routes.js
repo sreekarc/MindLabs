@@ -16,7 +16,8 @@ router.get('/api/testGet', function(req, res) {
 
 
 router.post('/api/testPost', function(req, res) {
-  var data = JSON.parse(req.body.data);
+  console.log(req.body);
+  var data = JSON.parse(req.body);
   console.log("Post Arrived")
   //console.log(data)
   fs.writeFile('sample.json', JSON.stringify(data, null, 2), function(err) {

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+var fs = require('fs');
+
 /**
  * Module dependencies.
  */
@@ -21,6 +23,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -89,3 +92,17 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+io.on('connection', function(socket){
+  socket.on('servo steering', function(msg){
+    console.log(msg);
+    console.log("got steering message");
+    var parsedmsg = JSON.parse(msg);
+    var nmsg = parsedmsg.pwm;
+    fs.writeFile('servopwm.txt', nmsg, function(err){
+      if(err) {
+        console.log(err);
+      } 
+    });
+  });
+});
