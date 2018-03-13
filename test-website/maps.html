@@ -37,8 +37,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> 
 
 <script>
+
+var turnRange = 1500;
+
     function myFunc() {
-        var x = document.getElementById("myRange").value;
+        var x = turnRange;
         pwmnum = x;
         var msg = JSON.stringify({"pwm":pwmnum})
         console.log(msg)
@@ -69,6 +72,14 @@
         markers.push(marker);
         console.log(latlong);
     }
+	function changeTurn(distance)
+	{
+		if(turnRange > 1000 && turnRange < 2000)
+		{
+			turnRange += distance;
+			document.getElementById("myRange").value = turnRange;
+		}
+	}
 </script>
 
 <script>
@@ -101,6 +112,10 @@
     loadXMLDoc();
     var myVar = setInterval(myMarker, 600);
 </script>
+
+
+<button id="leftTurn" style="width:50px; height:50px" onclick="turnRange(-50)"><--</button>
+<button id="rightTurn" style="width:50px; height:50px" onclick="turnRange(50)">--></button>
 
 <input style="width:300px; margin-top:100px; margin-left:100px;" type="range" id="myRange" min="800" max="2200">
 
