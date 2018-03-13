@@ -51,8 +51,8 @@ document.getElementById("throttleSlide").value = 1500;
     }
 	function throttleFunc() {
         var z = document.getElementById("throttleSlide").value;
-        pwmnum = z;
-        var msg = JSON.stringify({"pwm":pwmnum})
+        pwmnum1 = z;
+        var msg = JSON.stringify({"pwm":pwmnum1})
         console.log(msg)
         var socket = io();
         socket.emit('throttle', msg);

@@ -105,4 +105,15 @@ io.on('connection', function(socket){
       } 
     });
   });
+  socket.on('throttle', function(msg){
+    console.log(msg);
+    console.log("got throttle message");
+    var parsedmsg1 = JSON.parse(msg);
+    var nmsg1 = parsedmsg1.pwm;
+    fs.writeFile('motorpwm.txt', nmsg1, function(err){
+      if(err) {
+        console.log(err);
+      } 
+    });
+  });
 });
