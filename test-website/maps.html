@@ -83,11 +83,15 @@ document.getElementById("throttleSlide").value = 1500;
     }
 	function changeTurn(distance)
 	{
-		if(turnRange > 1000 && turnRange < 2000)
-		{
-			turnRange += distance;
-			document.getElementById("myRange").value = turnRange;
+		turnRange += distance;
+		if(turnRange>2000){
+			turnRange = 2000;
 		}
+		if(turnRange<1000){
+			turnRange = 1000;
+		}
+		document.getElementById("myRange").value = turnRange;
+		myFunc();
 	}
 </script>
 
@@ -123,8 +127,8 @@ document.getElementById("throttleSlide").value = 1500;
 </script>
 
 
-<button id="leftTurn" style="width:50px; height:50px" onclick="turnRange(-50)"><--</button>
-<button id="rightTurn" style="width:50px; height:50px" onclick="turnRange(50)">--></button>
+<button id="leftTurn" style="width:50px; height:50px" onclick="changeTurn(-100)"><--</button>
+<button id="rightTurn" style="width:50px; height:50px" onclick="changeTurn(100)">--></button>
 
 <input style="width:300px; margin-top:100px; margin-left:100px;" type="range" id="myRange" min="800" max="2200">
 
