@@ -39,6 +39,8 @@
 <script>
 
 var turnRange = 1500;
+var throttleValue = 1500;
+
 document.getElementById("throttleSlide").value = 1500;
     function myFunc() {
         var x = turnRange;
@@ -93,6 +95,18 @@ document.getElementById("throttleSlide").value = 1500;
 		document.getElementById("myRange").value = turnRange;
 		myFunc();
 	}
+	function changeThrottle(distance)
+	{
+		throttleValue += distance;
+		if(throttleValue>2000){
+			throttleValue = 2000;
+		}
+		if(throttleValue<1000){
+			throttleValue = 1000;
+		}
+		//document.getElementById("myRange").value = turnRange;
+		throttleFunc();
+	}
 </script>
 
 <script>
@@ -130,12 +144,16 @@ document.getElementById("throttleSlide").value = 1500;
 <button id="leftTurn" style="width:50px; height:50px" onclick="changeTurn(-100)"><--</button>
 <button id="rightTurn" style="width:50px; height:50px" onclick="changeTurn(100)">--></button>
 
+<button id="throttleUp" style="width:50px; height:50px" onclick="changeThrottle(-100)"><--</button>
+<button id="throttleDown" style="width:50px; height:50px" onclick="changeThrottle(100)">--></button>
+
+
 <input style="width:300px; margin-top:100px; margin-left:100px;" type="range" id="myRange" min="800" max="2200">
 
 <input style="width:300px; margin-top:100px; margin-left:100px;  -webkit-appearance: slider-vertical;" type="range" id="throttleSlide" min="1000" max="2000">
 
 <script>
-    var steerServo = setInterval(myFunc, 200);
+    //var steerServo = setInterval(myFunc, 200);
 </script>
 
 </body>
