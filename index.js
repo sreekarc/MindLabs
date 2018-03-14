@@ -99,7 +99,7 @@ io.on('connection', function(socket){
     console.log("got steering message");
     var parsedmsg = JSON.parse(msg);
     var nmsg = parsedmsg.pwm;
-    fs.writeFile('servopwm.txt', nmsg, function(err){
+    fs.writeFile('/home/pi/dronekit-python/examples/vehicle_state/AFBWebsite/servopwm.txt', nmsg, function(err){
       if(err) {
         console.log(err);
       } 
@@ -110,7 +110,7 @@ io.on('connection', function(socket){
     console.log("got throttle message");
     var parsedmsg1 = JSON.parse(msg);
     var nmsg1 = parsedmsg1.pwm;
-    fs.writeFile('motorpwm.txt', nmsg1, function(err){
+    fs.writeFile('/home/pi/dronekit-python/examples/vehicle_state/AFBWebsite/motorpwm.txt', nmsg1, function(err){
       if(err) {
         console.log(err);
       } 
