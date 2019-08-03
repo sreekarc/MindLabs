@@ -116,4 +116,16 @@ io.on('connection', function(socket){
       } 
     });
   });
+  socket.on('temperature', function(msg){
+    console.log(msg);
+    console.log("got temperature message");
+    var parsedmsg2 = JSON.parse(msg);
+    var nmsg2 = parsedmsg2.temp;
+    fs.writeFile('/home/pi/AC_Project/MindLabs/temp.txt', nmsg2, function(err){
+      if(err) {
+        console.log(err);
+      } 
+    });
+  });
+
 });

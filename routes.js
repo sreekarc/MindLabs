@@ -14,6 +14,10 @@ router.get('/api/testGet', function(req, res) {
   console.log("Get Arrived")
 });
 
+router.get('/api/getDeviceState', function(req, res) {
+  res.send( fs.readFileSync('/home/pi/AC_Project/MindLabs/temp.txt', 'UTF-8') );
+  console.log("Get Arrived")
+});
 
 router.post('/api/testPost', function(req, res) {
   console.log(req.body);
@@ -27,5 +31,19 @@ router.post('/api/testPost', function(req, res) {
   })
 
 });
+
+router.post('/api/postTemp', function(req, res) {
+  console.log(req.body);
+  console.log("Post Arrived");
+  var stu = req.body;
+  var temp = stu.temp;
+  fs.writeFile('/home/pi/AC_Project/MindLabs/temp.txt', temp, function(err) {
+    if(err) {
+      console.log(err);
+    }
+  })
+
+});
+
 
 module.exports = router;
